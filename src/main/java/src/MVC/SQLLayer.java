@@ -13,15 +13,12 @@ import java.util.List;
 /**
  * Created by luke on 11/6/2016.
  */
-
-    /**
-     * Created by luke on 11/5/2016.
-     */
     public class SQLLayer {
         private Connection con;
         private Statement stmt;
 
         public SQLLayer() throws Exception {
+            //connect to db
             String url = "jdbc:mysql://kc-sce-appdb01.kc.umkc.edu/lsg72";
             String userID = "lsg72";
             String password = "bMNLwflRlmmHhi58CaVD";
@@ -34,6 +31,9 @@ import java.util.List;
             con = DriverManager.getConnection(url,userID,password);
             stmt = con.createStatement();
         }
+        /**
+        * returns all questions
+        */
         public List<Question> getQuestions(){
             String query = "Select * from questions";
 
@@ -50,6 +50,10 @@ import java.util.List;
             }
             return result;
         }
+        /**
+        *accepts a question
+        *adds it to the db
+        */
         public void addQuestion(Question q){
             String query = "Insert into Questions(question) values(?)";
             PreparedStatement pstmt = null;
@@ -63,6 +67,10 @@ import java.util.List;
                 e.printStackTrace();
             }
         }
+        /**
+        *accepts an answer
+        *adds it to the db
+        */
         public void addAnswer(Answer a){
             String query = "Insert into Answers(answer,question_id_fk) values(?,?)";
             PreparedStatement pstmt = null;
@@ -77,6 +85,9 @@ import java.util.List;
                 e.printStackTrace();
             }
         }
+         /**
+        * returns all answers for a given question
+        */
         public List<Answer> getAnswer(int id){
             String query = "Select * from Answers Where question_id_fk = "+ id;
             List<Answer> answerList = new ArrayList<>();
