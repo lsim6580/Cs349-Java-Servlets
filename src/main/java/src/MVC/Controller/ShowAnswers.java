@@ -25,7 +25,7 @@ public class ShowAnswers extends HttpServlet {
         super();
         answerViewModel = new AnswerViewModel();
     }
-    /**add question to do the DB*/
+    /**add answer to do the DB*/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
@@ -36,7 +36,7 @@ public class ShowAnswers extends HttpServlet {
         answer.addSQLAnswer(answer);
         response.sendRedirect("ShowAnswers?id="+ questionID);
     }
-    /**get all answers and display them*/
+    /**get all answers for a question and display them*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             questionID = Integer.parseInt(request.getParameter("id"));
             RequestDispatcher rd = null;
