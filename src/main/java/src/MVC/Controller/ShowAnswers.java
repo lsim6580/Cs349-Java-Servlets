@@ -19,30 +19,24 @@ import java.util.List;
  */
 @WebServlet(name = "ShowAnswers")
 public class ShowAnswers extends HttpServlet {
-    SQLLayer sqlLayer;
     AnswerViewModel answerViewModel;
     int questionID;
     public ShowAnswers() throws Exception{
         super();
-
         answerViewModel = new AnswerViewModel();
     }
+    /**add question to do the DB*/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
         String theAnswer = request.getParameter("theAnswer");
-        System.out.println(theAnswer);
         Answer answer = new Answer();
         answer.setQuestionId(questionID);
         answer.setAnswer(theAnswer);
         answer.addSQLAnswer(answer);
-
         response.sendRedirect("ShowAnswers?id="+ questionID);
-
-
-
     }
-
+    /**get all answers and display them*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             questionID = Integer.parseInt(request.getParameter("id"));
             RequestDispatcher rd = null;
@@ -53,13 +47,5 @@ public class ShowAnswers extends HttpServlet {
             request.setAttribute("viewModel", answerViewModels);
 
             rd.forward(request, response);
-//            out.println("<html>");
-//            out.println("<body>");
-//
-
-//        out.println("<form method=\"POST\" action=\"ShowAnswers\">");
-//        out.println("<p><input type=\"text\" name=\"theAnswer\" size=\"50\"> <input type=\"submit\" value=\"Add Answer\"></p>");
-//        out.println("</form>");
-//        out.println("</body></html>");
         }
     }
