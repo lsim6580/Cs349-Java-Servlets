@@ -18,31 +18,24 @@ import java.util.List;
  */
 @WebServlet(name = "ShowQuestions")
 public class ShowQuestions extends HttpServlet {
-    SQLLayer sqlLayer;
     Question question;
     public ShowQuestions(){
         super();
         question = new Question();
     }
+    /**add question to db*/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         String theQuestion = request.getParameter("theQuestion");
-        System.out.println(theQuestion);
         question.addQuestion(new Question(theQuestion));
-
         response.sendRedirect("ShowQuestions");
-
-
-
     }
-
+    /**get all questions and display them*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
-
         QuestionViewModel questionViewModel = new QuestionViewModel();
         List<QuestionViewModel> questionViewModels = questionViewModel.getQuestions();
         RequestDispatcher rd = null;
-        //QuestionViewModel questionViewModel = new QuestionViewModel(question.getSQLQuestions());
         rd = request.getRequestDispatcher("/Views/Questions.jsp");
         request.setAttribute("viewModel", questionViewModels);
         rd.forward(request, response);
