@@ -21,15 +21,12 @@ import java.util.List;
  */
 @WebServlet(name = "GetQuestionsAPI")
 public class GetQuestionsAPI extends HttpServlet {
-    SQLLayer sqlLayer;
+
     public GetQuestionsAPI()throws Exception{
         super();
-        sqlLayer = new SQLLayer();
     }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
+   
+    /**Will return all questions asked and stored in the DB*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Question question = new Question();
         QuestionViewModel questionViewModel = new QuestionViewModel();
